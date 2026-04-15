@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Premium Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top left, rgba(34,197,94,0.18), transparent 22%),
+                  radial-gradient(circle at bottom right, rgba(59,130,246,0.18), transparent 20%),
+                  linear-gradient(135deg, #020617 0%, #0b1220 40%, #050b16 100%);
+      color: #e2e8f0;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+      background-size: 120px 120px;
+      opacity: 0.35;
+      pointer-events: none;
+    }
+
+    header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 50px;
+      background: rgba(5, 11, 22, 0.55);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      z-index: 1000;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #22c55e;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .brand::before {
+      content: '';
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 18px rgba(34,197,94,0.7);
+    }
+
+    nav {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    nav a {
+      color: #cbd5f5;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.25s ease, transform 0.25s ease;
+    }
+
+    nav a:hover,
+    nav a.active {
+      color: #22c55e;
+      transform: translateY(-1px);
+    }
+
+    section {
+      padding: 140px 50px 80px;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 18px;
+      padding-top: 80px;
+    }
+
+    .hero h2 {
+      font-size: clamp(2.6rem, 5vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .hero span {
+      color: #22c55e;
+      position: relative;
+    }
+
+    .hero span::after {
+      content: '';
+      position: absolute;
+      inset: 60% 0 0 0;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(34,197,94,0.35);
+      z-index: -1;
+    }
+
+    .hero p {
+      max-width: 720px;
+      font-size: 1.05rem;
+      color: #cbd5f5;
+      opacity: 0.95;
+      line-height: 1.8;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 12px;
+    }
+
+    .btn,
+    .secondary {
+      border: none;
+      border-radius: 999px;
+      padding: 14px 30px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #22c55e, #10b981);
+      color: #020617;
+      box-shadow: 0 18px 40px rgba(34,197,94,0.2);
+    }
+
+    .secondary {
+      background: rgba(255,255,255,0.08);
+      color: #e2e8f0;
+    }
+
+    .btn:hover,
+    .secondary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 24px 45px rgba(34,197,94,0.18);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 40px;
+      align-items: center;
+      margin-top: 50px;
+      width: 100%;
+      max-width: 1120px;
+    }
+
+    .hero-copy {
+      display: grid;
+      gap: 24px;
+      justify-items: center;
+    }
+
+    .hero-panel {
+      position: relative;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 32px;
+      padding: 32px;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.28);
+      overflow: hidden;
+      min-height: 420px;
+    }
+
+    .hero-panel::before {
+      content: '';
+      position: absolute;
+      inset: -40px;
+      background: radial-gradient(circle at top right, rgba(59,130,246,0.25), transparent 28%),
+                  radial-gradient(circle at bottom left, rgba(34,197,94,0.22), transparent 30%);
+      opacity: 0.65;
+      pointer-events: none;
+    }
+
+    .hero-panel-content {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 24px;
+    }
+
+    .hero-panel h4 {
+      color: #e2e8f0;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      opacity: 0.72;
+    }
+
+    .hero-panel p {
+      color: #cbd5f5;
+      line-height: 1.8;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.08);
+      padding: 22px 20px;
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.8rem;
+      color: #22c55e;
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .section-title::before {
+      content: '';
+      width: 42px;
+      height: 2px;
+      background: #22c55e;
+      border-radius: 999px;
+    }
+
+    h3 {
+      font-size: clamp(2rem, 3vw, 2.5rem);
+      color: #22c55e;
+    }
+
+    .about,
+    .projects,
+    .contact {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      gap: 24px;
+    }
+
+    .about-grid,
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .glass-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 30px;
+      padding: 32px;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.22);
+      backdrop-filter: blur(12px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glass-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent 45%);
+      pointer-events: none;
+    }
+
+    .about-text {
+      line-height: 1.85;
+      color: #cbd5f5;
+      max-width: 100%;
+    }
+
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-top: 12px;
+    }
+
+    .skill {
+      padding: 20px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      text-align: center;
+      font-weight: 600;
+      color: #e2e8f0;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+    }
+
+    .project-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: 0 24px 55px rgba(0,0,0,0.2);
+      transition: transform 0.35s ease, border-color 0.35s ease, background 0.35s ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-12px);
+      background: rgba(34,197,94,0.08);
+      border-color: rgba(34,197,94,0.28);
+    }
+
+    .project-card h4 {
+      margin-bottom: 14px;
+      font-size: 1.35rem;
+      color: #f8fafc;
+    }
+
+    .project-card p {
+      line-height: 1.8;
+      color: #cbd5f5;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .tag {
+      font-size: 0.85rem;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(34,197,94,0.12);
+      color: #d1fae5;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .contact-copy {
+      display: grid;
+      gap: 18px;
+    }
+
+    form {
+      display: grid;
+      gap: 18px;
+      margin-top: 8px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 18px;
+      padding: 16px 18px;
+      color: #e2e8f0;
+      outline: none;
+      transition: border-color 0.25s ease, transform 0.25s ease;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: rgba(34,197,94,0.85);
+      transform: translateY(-1px);
+    }
+
+    textarea {
+      min-height: 170px;
+      resize: none;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px 50px;
+      color: #94a3b8;
+      font-size: 0.95rem;
+    }
+
+    .wave {
+      position: absolute;
+      inset: auto 0 0 0;
+      width: 100%;
+      height: 120px;
+      background: linear-gradient(180deg, transparent, rgba(10,20,40,0.9));
+      pointer-events: none;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.9s ease forwards;
+    }
+
+    .delay-1 { animation-delay: 0.15s; }
+    .delay-2 { animation-delay: 0.3s; }
+    .delay-3 { animation-delay: 0.45s; }
+    .delay-4 { animation-delay: 0.6s; }
+    .delay-5 { animation-delay: 0.75s; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 1024px) {
+      header { padding: 20px 32px; }
+      section { padding: 120px 32px 60px; }
+      .hero-grid,
+      .about-grid,
+      .contact-grid { grid-template-columns: 1fr; }
+      .hero-panel { min-height: auto; }
+    }
+
+    @media (max-width: 700px) {
+      header { flex-direction: column; gap: 18px; align-items: flex-start; }
+      nav { flex-wrap: wrap; gap: 14px; }
+      .hero { padding-top: 20px; }
+      .hero h2 { font-size: 2.4rem; }
+      .hero-grid { gap: 28px; }
+      .hero-panel { padding: 26px; }
+      .about,
+      .projects,
+      .contact { padding: 0 0 0; }
+      section { padding: 110px 24px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="brand">Premium Portfolio</div>
+  <nav>
+    <a href="#home" class="active">Home</a>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<section id="home" class="hero">
+  <div class="hero-copy fade-up delay-1">
+    <h2>Hi, I’m <span>Your Name</span>, crafting immersive web experiences.</h2>
+    <p>I design polished, responsive interfaces that feel fast, elegant, and easy to use. My work blends animation, layout, and accessibility for modern digital brands.</p>
+  </div>
+
+  <div class="hero-actions fade-up delay-2">
+    <button class="btn" onclick="scrollToSection('projects')">Explore Work</button>
+    <button class="secondary" onclick="scrollToSection('contact')">Let's Connect</button>
+  </div>
+
+  <div class="hero-grid fade-up delay-3">
+    <div class="hero-panel">
+      <div class="hero-panel-content">
+        <h4>What I do</h4>
+        <p class="about-text">I build high-end landing pages, dashboard experiences, and brand-led websites using pure frontend techniques and thoughtful interactions.</p>
+        <div class="hero-stats">
+          <div class="stat">
+            <strong>5+</strong>
+            Years Experience
+          </div>
+          <div class="stat">
+            <strong>20+</strong>
+            Projects Delivered
+          </div>
+          <div class="stat">
+            <strong>95%</strong>
+            Client Satisfaction
+          </div>
+          <div class="stat">
+            <strong>100%</strong>
+            Responsive Design
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about">
+  <div class="section-title"></div>
+  <h3>About Me</h3>
+  <div class="about-grid fade-up delay-1">
+    <div>
+      <div class="glass-card">
+        <h4>Modern Design</h4>
+        <p class="about-text">I create user interfaces that stand out with clean layouts, soft shadows, and refined transitions. Every page is built to feel professional and polished.</p>
+        <div class="skills">
+          <div class="skill">HTML</div>
+          <div class="skill">CSS</div>
+          <div class="skill">JavaScript</div>
+          <div class="skill">UI/UX</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="glass-card">
+        <h4>Why work with me?</h4>
+        <p class="about-text">I focus on clarity, performance, and accessible experiences. Every detail is designed to improve engagement and make strong first impressions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" class="projects">
+  <div class="section-title"></div>
+  <h3>Projects</h3>
+  <div class="projects-grid fade-up delay-2">
+    <div class="project-card">
+      <h4>Dashboard Interface</h4>
+      <p>A polished admin dashboard concept with charts, data cards, and elegant dark/glow styling for modern SaaS products.</p>
+      <div class="project-tags">
+        <span class="tag">React</span>
+        <span class="tag">UI</span>
+        <span class="tag">Dashboard</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <h4>Landing Page</h4>
+      <p>A conversion-focused landing page with bold headings, clear calls to action, and animated sections for visual storytelling.</p>
+      <div class="project-tags">
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">Performance</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <h4>Portfolio Showcase</h4>
+      <p>A custom portfolio layout designed to highlight case studies, new features, and client work with crisp typography.</p>
+      <div class="project-tags">
+        <span class="tag">Design</span>
+        <span class="tag">Brand</span>
+        <span class="tag">Animation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="section-title"></div>
+  <h3>Contact Me</h3>
+  <div class="contact-grid fade-up delay-3">
+    <div class="contact-copy">
+      <p class="about-text">Ready to bring your next project to life? Reach out and let's build something beautiful together.</p>
+      <div class="glass-card">
+        <h4>Let's chat</h4>
+        <p class="about-text">Quick turnarounds, friendly collaboration, and fully responsive frontend builds.</p>
+      </div>
+    </div>
+    <form onsubmit="sendWhatsApp(event)">
+      <input type="text" id="name" placeholder="Your Name" required>
+      <input type="email" id="email" placeholder="Your Email" required>
+      <textarea id="message" placeholder="Your Message" required></textarea>
+      <button class="btn" type="submit">Send via WhatsApp</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Your Name • Crafted with modern frontend design.</p>
+</footer>
+
+<script>
+  const links = document.querySelectorAll('nav a');
+  function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+    links.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + id));
+  }
+
+  window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('section');
+    const scrollPosition = window.scrollY + window.innerHeight / 3;
+    sections.forEach(section => {
+      const top = section.offsetTop;
+      const bottom = section.offsetTop + section.offsetHeight;
+      const id = section.getAttribute('id');
+      const link = document.querySelector(`nav a[href='#${id}']`);
+      if (scrollPosition >= top && scrollPosition < bottom) {
+        link?.classList.add('active');
+      } else {
+        link?.classList.remove('active');
+      }
+    });
+  });
+
+  function sendWhatsApp(e) {
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+    const phone = '917725013140'; // replace with your WhatsApp number
+    const url = `https://wa.me/${phone}?text=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\nMessage: ${message}`)}`;
+    window.open(url, '_blank');
+  }
+</script>
+
+</body>
+</html>
