@@ -18,6 +18,7 @@
     }
 
     body {
+      position: relative;
       min-height: 100vh;
       background: radial-gradient(circle at top left, rgba(34,197,94,0.18), transparent 22%),
                   radial-gradient(circle at bottom right, rgba(59,130,246,0.18), transparent 20%),
@@ -34,6 +35,67 @@
       background-size: 120px 120px;
       opacity: 0.35;
       pointer-events: none;
+    }
+
+    .background-circles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .background-circles span {
+      position: absolute;
+      display: block;
+      border-radius: 50%;
+      filter: blur(16px);
+      opacity: 0.45;
+      animation: float 14s ease-in-out infinite;
+    }
+
+    .background-circles span:nth-child(1) {
+      width: 220px;
+      height: 220px;
+      background: rgba(34,197,94,0.22);
+      top: 10%;
+      left: 5%;
+      animation-duration: 18s;
+    }
+
+    .background-circles span:nth-child(2) {
+      width: 180px;
+      height: 180px;
+      background: rgba(59,130,246,0.2);
+      top: 30%;
+      right: 8%;
+      animation-duration: 16s;
+      animation-delay: 3s;
+    }
+
+    .background-circles span:nth-child(3) {
+      width: 140px;
+      height: 140px;
+      background: rgba(245,158,11,0.16);
+      bottom: 15%;
+      left: 15%;
+      animation-duration: 20s;
+      animation-delay: 5s;
+    }
+
+    .background-circles span:nth-child(4) {
+      width: 260px;
+      height: 260px;
+      background: rgba(255,255,255,0.08);
+      bottom: 5%;
+      right: 12%;
+      animation-duration: 17s;
+      animation-delay: 2s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-18px) translateX(14px); }
     }
 
     header {
@@ -139,6 +201,30 @@
       flex-wrap: wrap;
       justify-content: center;
       margin-top: 12px;
+    }
+
+    .hero-highlights {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 28px;
+    }
+
+    .highlight-pill {
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      background: rgba(255,255,255,0.05);
+      color: #cbd5f5;
+      font-size: 0.95rem;
+      transition: transform 0.25s ease, background 0.25s ease;
+    }
+
+    .highlight-pill:hover {
+      transform: translateY(-2px);
+      background: rgba(34,197,94,0.12);
+      border-color: rgba(34,197,94,0.28);
     }
 
     .btn,
@@ -419,6 +505,35 @@
       font-size: 0.95rem;
     }
 
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+
+    .social-links a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #cbd5f5;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .social-links a:hover {
+      transform: translateY(-2px);
+      background: rgba(34,197,94,0.16);
+      border-color: rgba(34,197,94,0.25);
+      color: #e7f9ef;
+    }
+
     .wave {
       position: absolute;
       inset: auto 0 0 0;
@@ -471,6 +586,12 @@
   </style>
 </head>
 <body>
+  <div class="background-circles">
+    <span></span>
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 
 <header>
   <div class="brand">Premium Portfolio</div>
@@ -493,7 +614,14 @@
     <button class="secondary" onclick="scrollToSection('contact')">Let's Connect</button>
   </div>
 
-  <div class="hero-grid fade-up delay-3">
+  <div class="hero-highlights fade-up delay-3">
+    <div class="highlight-pill">Fast loading experiences</div>
+    <div class="highlight-pill">Pixel-perfect layout</div>
+    <div class="highlight-pill">Mobile-ready design</div>
+    <div class="highlight-pill">Creative UI animations</div>
+  </div>
+
+  <div class="hero-grid fade-up delay-4">
     <div class="hero-panel">
       <div class="hero-panel-content">
         <h4>What I do</h4>
@@ -602,6 +730,11 @@
 
 <footer>
   <p>© 2026 Your Name • Crafted with modern frontend design.</p>
+  <div class="social-links">
+    <a href="#" aria-label="LinkedIn">LinkedIn</a>
+    <a href="#" aria-label="GitHub">GitHub</a>
+    <a href="#" aria-label="Email">Email</a>
+  </div>
 </footer>
 
 <script>
